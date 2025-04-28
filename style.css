@@ -1,0 +1,88 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #ff442a;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    width: 90%;
+    max-width: 800px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+h1, h2 {
+    text-align: center;
+    color: #333;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: #ffdfe6;
+}
+button {
+    background: #641780;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+    font-size: 16px;
+}
+button:hover {
+    background: #4c1260;
+}
+.link {
+    text-align: center;
+    margin-top: 15px;
+}
+.section {
+    margin-top: 40px;
+}
+.card {
+    background: #ffe7ea;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.study-group {
+    margin-top: 20px;
+}
+.download {
+    display: inline-block;
+    margin-top: 10px;
+    background: #641780;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.download:hover {
+    background: #4c1260;
+}
+.join {
+    background: #641780;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+}
+.join:hover {
+    background: #4c1260;
+}
