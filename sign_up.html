@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login</title>
+  <title>Sign Up</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -15,25 +15,29 @@
     </nav>
 
     <div class="container">
-      <h2>Login</h2>
-      <form id="loginForm">
+      <h1>Create an Account</h1>
+      <form id="signupForm">
+        <div class="form-group">
+          <label for="nameInput">Name</label>
+          <input type="text" id="nameInput" required>
+        </div>
         <div class="form-group">
           <label for="emailInput">Email</label>
-          <input type="email" id="emailInput" placeholder="Your Email" required>
+          <input type="email" id="emailInput" required>
         </div>
         <div class="form-group">
           <label for="passwordInput">Password</label>
-          <input type="password" id="passwordInput" placeholder="Your Password" required>
+          <input type="password" id="passwordInput" required>
         </div>
-        <button type="submit">Log In</button>
+        <button type="submit">Sign Up</button>
       </form>
 
-      <p class="link">
-        Forgot Password? <a href="forgot_password.html">Reset</a>
-      </p>
+      <p>Already have an account? <a href="log_in.html">Login</a></p>
 
-      <div id="error" class="error-message" style="display: none; color: red; margin-top: 1em;">
-        <!-- Error messages -->
+      <!-- Error and Success messages -->
+      <div id="error" class="error-message" style="display: none; color: red; margin-top: 1em;"></div>
+      <div id="success" class="success-message" style="display: none; color: green; margin-top: 1em;">
+        Your profile has been created!
       </div>
     </div>
   </div>
@@ -45,9 +49,9 @@
   <!-- Firebase v11 modular SDK -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
 
-    // Firebase config (coppy paste from firebase)
+    // Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyArhLXFixzSmFPv7mGfAkLXp6uCMAB847o",
       authDomain: "finova-a5e1d.firebaseapp.com",
@@ -58,34 +62,41 @@
       measurementId: "G-KSP7CBCVH6"
     };
 
-    // Initialize Firebase and Authentification
     const app  = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    const loginForm = document.getElementById('loginForm');
-    const errorBox  = document.getElementById('error');
+    const signupForm = document.getElementById('signupForm');
+    const successBox = document.getElementById('success');
+    const errorBox   = document.getElementById('error');
 
-    loginForm.addEventListener('submit', async (e) => {
+    signupForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      errorBox.style.display = 'none';
+      successBox.style.display = 'none';
+      errorBox.style.display   = 'none';
+
+      const name     = document.getElementById('nameInput').value.trim();
       const email    = document.getElementById('emailInput').value.trim();
       const password = document.getElementById('passwordInput').value.trim();
 
       try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        console.log('Logged in:', userCredential.user);
-        window.location.href = 'sakumlapa_2.html';
-      } catch (err) {s
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        console.log('Registered user:', userCredential.user);
 
-        const invalidCodes = [
-          'auth/wrong-password',
-          'auth/user-not-found',
-          'auth/invalid-credential'
-        ];
-        const message = invalidCodes.includes(err.code)
-          ? 'Wrong email or password'
-          : err.message;
-
+        successBox.style.display = 'block';
+        signupForm.reset();
+      } catch (err) {
+        let message;
+        if (err.code === 'auth/email-already-in-use') {
+            // registered email error
+          message = 'This email is already registered.';
+        } else if (err.code === 'auth/weak-password') {
+          message = 'Password should be at least 6 characters';
+        } else {
+          //weak password edited message
+          message = err.message
+            .replace(/^Firebase:\s*/, '')
+            .replace(/\s*\([^)]+\)\.?$/, '');
+        }
         errorBox.textContent = message;
         errorBox.style.display = 'block';
       }
@@ -93,4 +104,3 @@
   </script>
 </body>
 </html>
-
