@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat Room</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* chat widget styles */
+    #chat-container { margin: 40px auto; max-width: 600px; }
+    #messages { max-height: 400px; overflow-y: auto; padding: 10px; border: 1px solid #ccc; background: #fafafa; }
+    .msg { margin-bottom: 12px; }
+    .msg .meta { font-size: 12px; color: #555; }
+    .chat-input { display: flex; margin-top: 10px; }
+    .chat-input input { flex: 1; padding: 8px; }
+    .chat-input button { padding: 8px 16px; margin-left: 6px; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <nav>
+      <a href="sakumlapa_2.html">Home</a>
+      <a href="study_groups.html">Groups</a>
+      <a href="materials.html">Study Materials</a>
+      <a href="get_help.html">Other Students</a>
+      <a href="sakumlapa.html" id="logout" style="float: right;">Log out</a>
+    </nav>
+
+    <!-- Chat widget -->
+    <section id="chat-container" style="display: none;">
+      <h2 id="chatTitle"></h2>
+      <div id="messages"></div>
+      <div class="chat-input">
+        <input id="msgInput" type="text" placeholder="Type your message…" />
+        <button id="sendBtn">Send</button>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Study Buddy Swap. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script type="module" src="logout.js"></script>
+  <script type="module" src="chat2.js"></script>
+</body>
+</html>
