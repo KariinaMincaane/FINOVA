@@ -1,6 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrapper">
+    <nav>
+      <a href="sakumlapa.html">Home</a>
+      <a href="sign_up.html">Sign Up</a>
+      <a href="log_in.html">Login</a>
+      <a href="study_groups.html">Groups</a>
+      <a href="get_help.html">Other students</a>
+    </nav>
+
+    <div class="container">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="emailInput">Email</label>
+          <input type="email" id="emailInput" placeholder="Your Email" required>
+        </div>
+        <div class="form-group">
+          <label for="passwordInput">Password</label>
+          <input type="password" id="passwordInput" placeholder="Your Password" required>
+        </div>
+        <button type="submit">Log In</button>
+      </form>
+
+      <p class="link">
+        Forgot Password? <a href="forgot_password.html">Reset</a>
+      </p>
+
+      <div id="error" class="error-message" style="display: none; color: red; margin-top: 1em;">
+        <!-- Error messages appear here -->
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Study Buddy Swap. All rights reserved.</p>
+  </footer>
+
+  <!-- Firebase v11 modular SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
+
+    // Your Firebase config (replace with your real values)
+    const firebaseConfig = {
+      apiKey: "AIzaSyArhLXFixzSmFPv7mGfAkLXp6uCMAB847o",
+      authDomain: "finova-a5e1d.firebaseapp.com",
+      projectId: "finova-a5e1d",
+      storageBucket: "finova-a5e1d.firebasestorage.app",
+      messagingSenderId: "330673393051",
+      appId: "1:330673393051:web:c1a462980a8d75bf4f653e",
+      measurementId: "G-KSP7CBCVH6"
+    };
+
+    // Initialize Firebase and Auth
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const loginForm = document.getElementById('loginForm');
+    const errorBox  = document.getElementById('error');
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBox.style.display = 'none';
+      const email    = document.getElementById('emailInput').value.trim();
+      const password = document.getElementById('passwordInput').value.trim();
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        console.log('Logged in:', userCredential.user);
+        window.location.href = 'sakumlapa.html';
+      } catch (err) {
+        // Show generic message for credential-related errors
+        const invalidCodes = [
+          'auth/wrong-password',
+          'auth/user-not-found',
+          'auth/invalid-credential'
+        ];
+        const message = invalidCodes.includes(err.code)
+          ? 'Wrong email or password'
+          : err.message;
+
+        errorBox.textContent = message;
+        errorBox.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
+
+  
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <title>Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
@@ -41,5 +142,5 @@
 
 </body>
 </html>
-
+-->
 

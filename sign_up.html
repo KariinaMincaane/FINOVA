@@ -1,51 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="wrapper">
+  <div class="wrapper">
+    <nav>
+      <a href="sakumlapa.html">Home</a>
+      <a href="sign_up.html">Sign Up</a>
+      <a href="log_in.html">Login</a>
+      <a href="study_groups.html">Groups</a>
+      <a href="get_help.html">Other students</a>
+    </nav>
 
-<nav>
-    <a href="sakumlapa.html">Home</a>
-    <a href="sign_up.html">Sign Up</a>
-    <a href="log_in.html">Login</a>
-    <a href="study_groups.html">Groups</a>
-    <a href="get_help.html">Other students</a>
-</nav>
-
-<div class="container">
-    <h1>Create an Account</h1>
-    <form method="get" action="#success">
+    <div class="container">
+      <h1>Create an Account</h1>
+      <form id="signupForm">
         <div class="form-group">
-            <label>Name</label>
-            <input type="text" required>
+          <label for="nameInput">Name</label>
+          <input type="text" id="nameInput" required>
         </div>
         <div class="form-group">
-            <label>Email</label>
-            <input type="email" required>
+          <label for="emailInput">Email</label>
+          <input type="email" id="emailInput" required>
         </div>
         <div class="form-group">
-            <label>Password</label>
-            <input type="password" required>
+          <label for="passwordInput">Password</label>
+          <input type="password" id="passwordInput" required>
         </div>
         <button type="submit">Sign Up</button>
-    </form>
+      </form>
 
-    <p>Already have an account? <a href="log_in.html">Login</a></p>
+      <p>Already have an account? <a href="log_in.html">Login</a></p>
 
-    <div id="success" class="success-message">
+      <!-- Error & Success messages -->
+      <div id="error" class="error-message" style="display: none; color: red; margin-top: 1em;"></div>
+      <div id="success" class="success-message" style="display: none; color: green; margin-top: 1em;">
         Your profile has been created!
+      </div>
     </div>
-</div>
+  </div>
 
-</div>
-
-<footer>
+  <footer>
     <p>&copy; 2025 Study Buddy Swap. All rights reserved.</p>
-</footer>
+  </footer>
+
+  <!-- Firebase v11 modular SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
+
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyArhLXFixzSmFPv7mGfAkLXp6uCMAB847o",
+      authDomain: "finova-a5e1d.firebaseapp.com",
+      projectId: "finova-a5e1d",
+      storageBucket: "finova-a5e1d.firebasestorage.app",
+      messagingSenderId: "330673393051",
+      appId: "1:330673393051:web:c1a462980a8d75bf4f653e",
+      measurementId: "G-KSP7CBCVH6"
+    };
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const signupForm = document.getElementById('signupForm');
+    const successBox = document.getElementById('success');
+    const errorBox   = document.getElementById('error');
+
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      successBox.style.display = 'none';
+      errorBox.style.display   = 'none';
+
+      const name     = document.getElementById('nameInput').value.trim();
+      const email    = document.getElementById('emailInput').value.trim();
+      const password = document.getElementById('passwordInput').value.trim();
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        console.log('Registered user:', userCredential.user);
+
+        successBox.style.display = 'block';
+        signupForm.reset();
+      } catch (err) {
+        let message;
+        if (err.code === 'auth/email-already-in-use') {
+          message = 'This email is already registered.';
+        } else if (err.code === 'auth/weak-password') {
+          message = 'Password should be at least 6 characters';
+        } else {
+          //weak password edited message
+          message = err.message
+            .replace(/^Firebase:\s*/, '')
+            .replace(/\s*\([^)]+\)\.?$/, '');
+        }
+        errorBox.textContent = message;
+        errorBox.style.display = 'block';
+      }
+    });
+  </script>
 </body>
 </html>
