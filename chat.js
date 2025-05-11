@@ -11,7 +11,7 @@ import {
   onSnapshot
 } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
 
-// 2.1) Initialize Firebase
+// 1) Firebase configuration
 const firebaseConfig = {
   apiKey:            "AIzaSyArhLXFixzSmFPv7mGfAkLXp6uCMAB847o",
   authDomain:        "finova-a5e1d.firebaseapp.com",
@@ -21,21 +21,35 @@ const firebaseConfig = {
   appId:             "1:330673393051:web:c1a462980a8d75bf4f653e",
   measurementId:     "G-KSP7CBCVH6"
 };
-const app   = initializeApp(firebaseConfig);
-const auth  = getAuth(app);
-const db    = getFirestore(app);
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
 
-// 2.2) Identify the group to chat in
-//    – For now we hardcode; later you can read a URL param
-const groupId = "advanced-calculus";
-const msgsRef = collection(db, "groups", groupId, "messages");
+// 2) Map groupId slugs to display titles
+const GROUP_TOPICS = {
+  "advanced-calculus":   "Advanced Calculus & Probability Review",
+  "molecular-biology":   "Molecular Biology & Classical Mechanics Forum",
+  "python-fundamentals": "Fundamentals of Python Programming"
+};
 
-// 2.3) Grab the DOM elements
+// 3) Read groupId from URL
+const params  = new URLSearchParams(window.location.search);
+const groupId = params.get('group') || null;
+
+// 4) Set the chat title or fallback
+const titleEl = document.getElementById("chatTitle");
+if (groupId && GROUP_TOPICS[groupId]) {
+  titleEl.textContent = GROUP_TOPICS[groupId];
+} else {
+  titleEl.textContent = "Unknown Group";
+}
+
+// 5) DOM element references
 const messagesDiv = document.getElementById("messages");
 const inputEl     = document.getElementById("msgInput");
 const sendBtn     = document.getElementById("sendBtn");
 
-// 2.4) Listen for auth state and then stream messages
+// 6) Listen for auth state, then stream messages
 onAuthStateChanged(auth, user => {
   if (!user) {
     messagesDiv.innerHTML = "<p>Please <a href='log_in.html'>log in</a> to chat.</p>";
@@ -43,13 +57,16 @@ onAuthStateChanged(auth, user => {
     return;
   }
 
-  const q = query(msgsRef, orderBy("createdAt"));
-  onSnapshot(q, snapshot => {
+  // Reference to this group’s messages
+  const msgsRef = collection(db, "groups", groupId, "messages");
+  const q       = query(msgsRef, orderBy("createdAt"));
+
+  onSnapshot(q, snap => {
     messagesDiv.innerHTML = "";
-    snapshot.forEach(doc => {
+    snap.forEach(doc => {
       const { text, uid, createdAt } = doc.data();
       const time = createdAt?.toDate().toLocaleTimeString() || "";
-      const div = document.createElement("div");
+      const div  = document.createElement("div");
       div.className = "msg";
       div.innerHTML = `
         <div class="meta"><strong>${uid}</strong> @ ${time}</div>
@@ -61,13 +78,14 @@ onAuthStateChanged(auth, user => {
   });
 });
 
-// 2.5) Send new messages on button click
+
 sendBtn.addEventListener("click", async () => {
   const text = inputEl.value.trim();
   if (!text || !auth.currentUser) return;
+  const msgsRef = collection(db, "groups", groupId, "messages");
   await addDoc(msgsRef, {
     text,
-    uid: auth.currentUser.email || auth.currentUser.uid,
+    uid:       auth.currentUser.email || auth.currentUser.uid,
     createdAt: serverTimestamp()
   });
   inputEl.value = "";

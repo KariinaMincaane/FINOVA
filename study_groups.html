@@ -1,69 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Study Groups</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Study Groups</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="wrapper">
+  <div class="wrapper">
 
-<nav>
-    <a href="sakumlapa_2.html">Home</a>
-    <a href="study_groups.html">Groups</a>
-    <a href="materials.html">Study Materials</a>
-    <a href="get_help.html">Other Students</a>
-    <a href="#" id="logout" style="float: right;">Log out</a>
+    <nav>
+      <a href="sakumlapa_2.html">Home</a>
+      <a href="study_groups.html">Groups</a>
+      <a href="materials.html">Study Materials</a>
+      <a href="get_help.html">Other Students</a>
+      <a href="#" id="logout" style="float: right;">Log out</a>
+    </nav>
 
-</nav>
-
-<h2>Study Groups</h2>
-
-<div class="card">
-    <div class="tags">
+    <h2>Study Groups</h2>
+    
+    <div class="card">
+      <div class="tags">
         <span class="tag">Mathematics</span>
         <span class="tag">Final Exam Prep</span>
+      </div>
+      <h3 class="group-name">Advanced Calculus & Probability Review</h3>
+      <p class="description">
+        Intensive study group focused on advanced calculus concepts, probability theory, and key formulas for the upcoming final examination. Includes practice problems and collaborative problem-solving sessions.
+      </p>
+      <img src="C:/Users/Annija/Downloads/boho-9578683_1280.jpg"
+           alt="Mathematics Study Group"
+           class="card-image">
+      <div class="join-wrapper">
+        <a href="#"
+           class="join"
+           data-group-id="advanced-calculus">
+          Join
+        </a>
+      </div>
     </div>
-    <h3 class="group-name">Advanced Calculus & Probability Review</h3>
-    <p class="description">Intensive study group focused on advanced calculus concepts, probability theory, and key formulas for the upcoming final examination. Includes practice problems and collaborative problem-solving sessions.</p>
-    <img src="C:\Users\Annija\Downloads/boho-9578683_1280.jpg" alt="Mathematics Study Group" class="card-image">
-        <div class="join-wrapper">
-        <a href="#" class="join">Join</a>
-    </div>
-</div>
 
-<div class="card">
-    <div class="tags">
+    <div class="card">
+      <div class="tags">
         <span class="tag">Biology</span>
         <span class="tag">Physics</span>
         <span class="tag">Collaborative Study</span>
+      </div>
+      <h3 class="group-name">Molecular Biology & Classical Mechanics Forum</h3>
+      <p class="description">
+        Peer-led study group for in-depth review of molecular biology principles and classical mechanics. Emphasis on concept clarification through discussions, shared resources, and problem set analysis.
+      </p>
+      <img src="C:/Users/Annija/Downloads/boho-9578684_1280.jpg"
+           alt="Biology and Physics Study Group"
+           class="card-image">
+      <div class="join-wrapper">
+        <a href="#"
+           class="join"
+           data-group-id="molecular-biology">
+          Join
+        </a>
+      </div>
     </div>
-    <h3 class="group-name">Molecular Biology & Classical Mechanics Forum</h3>
-    <p class="description">Peer-led study group for in-depth review of molecular biology principles and classical mechanics. Emphasis on concept clarification through discussions, shared resources, and problem set analysis.</p>
-    <img src="C:\Users\Annija\Downloads/boho-9578684_1280.jpg" alt="Biology and Physics Study Group" class="card-image">
-            <div class="join-wrapper">
-        <a href="#" class="join">Join</a>
-    </div>
-</div>
-
-<div class="card">
-    <div class="tags">
+    <div class="card">
+      <div class="tags">
         <span class="tag">Computer Science</span>
         <span class="tag">Python</span>
         <span class="tag">Introductory</span>
+      </div>
+      <h3 class="group-name">Fundamentals of Python Programming</h3>
+      <p class="description">
+        Introductory group designed for university students learning Python. Focuses on core programming concepts, data structures, and algorithmic thinking through practical exercises and collaborative projects.
+      </p>
+      <img src="C:/Users/Annija/Downloads/flowers-9578678_1280.jpg"
+           alt="Python Programming Study Group"
+           class="card-image">
+      <div class="join-wrapper">
+        <a href="#"
+           class="join"
+           data-group-id="python-fundamentals">
+          Join
+        </a>
+      </div>
     </div>
-    <h3 class="group-name">Fundamentals of Python Programming</h3>
-    <p class="description">Introductory group designed for university students learning Python. Focuses on core programming concepts, data structures, and algorithmic thinking through practical exercises and collaborative projects.</p>
-    <img src="C:\Users\Annija\Downloads/flowers-9578678_1280.jpg" alt="Python Programming Study Group" class="card-image">
-            <div class="join-wrapper">
-        <a href="#" class="join">Join</a>
-    </div>
-</div>
 
-<footer>
-    <p>&copy; 2025 Study Buddy Swap. All rights reserved.</p>
-</footer>
-  <script type="module" src="logout.js"></script>
+    <footer>
+      <p>&copy; 2025 Study Buddy Swap. All rights reserved.</p>
+    </footer>
+    <script type="module" src="logout.js"></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('a.join').forEach(btn => {
+          btn.addEventListener('click', e => {
+            e.preventDefault();
+            const groupId = btn.dataset.groupId;
+            if (!groupId) return console.warn('Missing group-id on join button', btn);
+            window.location.href = `chat.html?group=${encodeURIComponent(groupId)}`;
+          });
+        });
+      });
+    </script>
+  </div>
 </body>
 </html>
