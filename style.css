@@ -221,3 +221,15 @@ h2 {
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
 }
+
+
+.page-description {
+    font-size: 16px;
+    font-style: italic;
+    color: #444;
+    margin: 30px auto;
+    max-width: 800px;
+    line-height: 1.6;
+    text-align: center;
+}
+
