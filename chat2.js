@@ -1,3 +1,4 @@
+// chat2.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
 import {
@@ -10,6 +11,7 @@ import {
   onSnapshot
 } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
 
+// Firebase config & init
 const firebaseConfig = {
   apiKey:            "AIzaSyArhLXFixzSmFPv7mGfAkLXp6uCMAB847o",
   authDomain:        "finova-a5e1d.firebaseapp.com",
@@ -19,10 +21,11 @@ const firebaseConfig = {
   appId:             "1:330673393051:web:c1a462980a8d75bf4f653e",
   measurementId:     "G-KSP7CBCVH6"
 };
-const app  = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db   = getFirestore(app);
+initializeApp(firebaseConfig);
+const auth = getAuth();
+const db   = getFirestore();
 
+// Map group IDs → titles
 const GROUP_TOPICS = {
   "emily-r": "Chat with Emily R.",
   "arjun-m": "Chat with Arjun M.",
@@ -30,21 +33,23 @@ const GROUP_TOPICS = {
 };
 
 const params        = new URLSearchParams(window.location.search);
-const groupId       = params.get('group');
-const chatContainer = document.getElementById('chat-container');
-const titleEl       = document.getElementById('chatTitle');
+const groupId       = params.get("group");
+const chatContainer = document.getElementById("chat-container");
+const titleEl       = document.getElementById("chatTitle");
 
+// Show panel & set heading
 if (groupId && GROUP_TOPICS[groupId]) {
   titleEl.textContent         = GROUP_TOPICS[groupId];
-  chatContainer.style.display = 'block';
+  chatContainer.style.display = "flex";
 } else {
-  chatContainer.style.display = 'none';
+  titleEl.textContent         = "Unknown Group";
 }
 
-const messagesDiv = document.getElementById('messages');
-const inputEl     = document.getElementById('msgInput');
-const sendBtn     = document.getElementById('sendBtn');
+const messagesDiv = document.getElementById("messages");
+const inputEl     = document.getElementById("msgInput");
+const sendBtn     = document.getElementById("sendBtn");
 
+// Firestore message stream
 onAuthStateChanged(auth, user => {
   if (!user) {
     messagesDiv.innerHTML = `<p>Please <a href="log_in.html">log in</a> to chat.</p>`;
@@ -73,6 +78,7 @@ onAuthStateChanged(auth, user => {
   });
 });
 
+// Sending new messages
 sendBtn.addEventListener("click", async () => {
   const text = inputEl.value.trim();
   if (!text || !auth.currentUser) return;
