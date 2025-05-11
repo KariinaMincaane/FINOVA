@@ -1,75 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Get Help</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Study Buddy Chat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      padding: 1rem;
+      background: #ff3c1f;
+      color: #222;
+    }
+
+    #backBtn {
+      display: inline-block;
+      margin-bottom: 1rem;
+      padding: .5rem 1rem;
+      border: none;
+      border-radius: .25rem;
+      background: #5c1282;
+      color: white;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    /* Group title */
+    #chatTitle {
+      margin-top: 0;
+      margin-bottom: .5rem;
+    }
+    #messages {
+      max-width: 600px;
+      margin: auto;
+      background: #ffe3e6;
+      padding: 1rem;
+      border-radius: .5rem;
+      height: 60vh;
+      overflow-y: auto;
+    }
+    .msg {
+      margin-bottom: .5rem;
+    }
+    .msg .meta {
+      font-size: .8rem;
+      color: #555;
+    }
+    #composer {
+      display: flex;
+      max-width: 600px;
+      margin: .5rem auto;
+    }
+    #composer input {
+      flex: 1;
+      padding: .5rem;
+      border-radius: .25rem;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    #composer button {
+      margin-left: .5rem;
+      padding: .5rem 1rem;
+      border: none;
+      border-radius: .25rem;
+      background: #5c1282;
+      color: white;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+  </style>
 </head>
 <body>
-  <div class="wrapper">
-    <nav>
-      <a href="sakumlapa_2.html">Home</a>
-      <a href="study_groups.html">Groups</a>
-      <a href="materials.html">Study Materials</a>
-      <a href="get_help.html">Other Students</a>
-      <a href="sakumlapa.html" id="logout" style="float: right;">Log out</a>
-    </nav>
+  <button id="backBtn">Back to Groups</button>
 
-    <h2>Get Help from Other Students</h2>
-    <p class="page-description">
-      Connect with fellow students who are available to assist with specific topics.  
-      Reach out for quick clarifications, regular study support, or peer tutoring via chat or video call.
-    </p>
+  <h2 id="chatTitle">Loading chat…</h2>
 
-    <div class="card">
-      <img src="https://cdn.pixabay.com/photo/2025/05/04/16/58/boho-9578684_1280.jpg" alt="Mathematics Header" class="card-header-image">
-      <h3 class="group-name">Emily R.</h3>
-      <p class="description">
-        Second-year data science student with strong skills in statistics and calculus.  
-        Happy to help with homework reviews, exam prep, or clarifying difficult concepts.
-      </p>
-      <p><strong>Available:</strong> Weekdays 1pm – 4pm</p>
-      <div class="join-wrapper">
-        <!-- now points to chat.html -->
-        <a href="chat.html?group=emily-r" class="join">Chat</a>
-        <a href="https://meet.jit.si/Study-room" target="_blank" class="join">Video Call</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://cdn.pixabay.com/photo/2025/05/04/16/58/boho-9578684_1280.jpg" alt="Biology Header" class="card-header-image">
-      <h3 class="group-name">Arjun M.</h3>
-      <p class="description">
-        Medical student offering peer support for biology and chemistry topics,  
-        especially organic chemistry and human physiology. Flexible sessions for Q&A.
-      </p>
-      <p><strong>Available:</strong> Evenings 6pm – 9pm</p>
-      <div class="join-wrapper">
-        <a href="chat.html?group=arjun-m" class="join">Chat</a>
-        <a href="https://meet.jit.si/Study-room" target="_blank" class="join">Video Call</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://cdn.pixabay.com/photo/2025/05/04/16/58/boho-9578684_1280.jpg" alt="Programming Header" class="card-header-image">
-      <h3 class="group-name">Lena K.</h3>
-      <p class="description">
-        Final-year computer science student experienced in Python and Java.  
-        Happy to assist with coding assignments, debugging, and explaining logic.
-      </p>
-      <p><strong>Available:</strong> Weekends 10am – 2pm</p>
-      <div class="join-wrapper">
-        <a href="chat.html?group=lena-k" class="join">Chat</a>
-        <a href="https://meet.jit.si/Study-room" target="_blank" class="join">Video Call</a>
-      </div>
-    </div>
-
-    <footer>
-      <p>&copy; 2025 Study Buddy Swap. All rights reserved.</p>
-    </footer>
+  <div id="messages"></div>
+  <div id="composer">
+    <input id="msgInput" type="text" placeholder="Type a message…" />
+    <button id="sendBtn">Send</button>
   </div>
 
-  <script type="module" src="logout.js"></script>
+  <script type="module" src="chat.js"></script>
+
+  <script>
+    document.getElementById('backBtn').addEventListener('click', () => {
+      window.location.href = 'study_groups.html';
+    });
+  </script>
 </body>
 </html>
