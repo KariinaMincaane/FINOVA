@@ -1,4 +1,4 @@
-// chat2.js
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
 import {
@@ -11,7 +11,6 @@ import {
   onSnapshot
 } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
 
-// Firebase config & init
 const firebaseConfig = {
   apiKey:            "AIzaSyArhLXFixzSmFPv7mGfAkLXp6uCMAB847o",
   authDomain:        "finova-a5e1d.firebaseapp.com",
@@ -25,7 +24,7 @@ initializeApp(firebaseConfig);
 const auth = getAuth();
 const db   = getFirestore();
 
-// Map group IDs → titles
+// titles
 const GROUP_TOPICS = {
   "emily-r": "Chat with Emily R.",
   "arjun-m": "Chat with Arjun M.",
@@ -36,8 +35,7 @@ const params        = new URLSearchParams(window.location.search);
 const groupId       = params.get("group");
 const chatContainer = document.getElementById("chat-container");
 const titleEl       = document.getElementById("chatTitle");
-
-// Show panel & set heading
+//headings for chats
 if (groupId && GROUP_TOPICS[groupId]) {
   titleEl.textContent         = GROUP_TOPICS[groupId];
   chatContainer.style.display = "flex";
@@ -49,7 +47,6 @@ const messagesDiv = document.getElementById("messages");
 const inputEl     = document.getElementById("msgInput");
 const sendBtn     = document.getElementById("sendBtn");
 
-// Firestore message stream
 onAuthStateChanged(auth, user => {
   if (!user) {
     messagesDiv.innerHTML = `<p>Please <a href="log_in.html">log in</a> to chat.</p>`;
