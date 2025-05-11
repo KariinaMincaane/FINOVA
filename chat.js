@@ -10,7 +10,7 @@ import {
   serverTimestamp,
   onSnapshot
 } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
-
+//firebase
 const firebaseConfig = {
   apiKey:            "AIzaSyArhLXFixzSmFPv7mGfAkLXp6uCMAB847o",
   authDomain:        "finova-a5e1d.firebaseapp.com",
