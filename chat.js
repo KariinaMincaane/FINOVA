@@ -11,7 +11,6 @@ import {
   onSnapshot
 } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore.js";
 
-// 1) Firebase configuration
 const firebaseConfig = {
   apiKey:            "AIzaSyArhLXFixzSmFPv7mGfAkLXp6uCMAB847o",
   authDomain:        "finova-a5e1d.firebaseapp.com",
@@ -25,18 +24,15 @@ const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
 
-// 2) Map groupId slugs to display titles
 const GROUP_TOPICS = {
   "advanced-calculus":   "Advanced Calculus & Probability Review",
   "molecular-biology":   "Molecular Biology & Classical Mechanics Forum",
   "python-fundamentals": "Fundamentals of Python Programming"
 };
 
-// 3) Read groupId from URL
 const params  = new URLSearchParams(window.location.search);
 const groupId = params.get('group') || null;
 
-// 4) Set the chat title or fallback
 const titleEl = document.getElementById("chatTitle");
 if (groupId && GROUP_TOPICS[groupId]) {
   titleEl.textContent = GROUP_TOPICS[groupId];
@@ -44,12 +40,10 @@ if (groupId && GROUP_TOPICS[groupId]) {
   titleEl.textContent = "Unknown Group";
 }
 
-// 5) DOM element references
 const messagesDiv = document.getElementById("messages");
 const inputEl     = document.getElementById("msgInput");
 const sendBtn     = document.getElementById("sendBtn");
 
-// 6) Listen for auth state, then stream messages
 onAuthStateChanged(auth, user => {
   if (!user) {
     messagesDiv.innerHTML = "<p>Please <a href='log_in.html'>log in</a> to chat.</p>";
@@ -57,7 +51,6 @@ onAuthStateChanged(auth, user => {
     return;
   }
 
-  // Reference to this group’s messages
   const msgsRef = collection(db, "groups", groupId, "messages");
   const q       = query(msgsRef, orderBy("createdAt"));
 
