@@ -35,7 +35,7 @@ const params        = new URLSearchParams(window.location.search);
 const groupId       = params.get("group");
 const chatContainer = document.getElementById("chat-container");
 const titleEl       = document.getElementById("chatTitle");
-//headings for chats
+//headings for chat rooms
 if (groupId && GROUP_TOPICS[groupId]) {
   titleEl.textContent         = GROUP_TOPICS[groupId];
   chatContainer.style.display = "flex";
