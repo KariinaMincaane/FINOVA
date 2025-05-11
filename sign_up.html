@@ -36,7 +36,7 @@
 
       <p>Already have an account? <a href="log_in.html">Login</a></p>
 
-      <!-- Error & Success messages -->
+      <!-- Error and Success messages -->
       <div id="error" class="error-message" style="display: none; color: red; margin-top: 1em;"></div>
       <div id="success" class="success-message" style="display: none; color: green; margin-top: 1em;">
         Your profile has been created!
@@ -53,7 +53,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
 
-    // Your Firebase config
+    // Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyArhLXFixzSmFPv7mGfAkLXp6uCMAB847o",
       authDomain: "finova-a5e1d.firebaseapp.com",
@@ -89,6 +89,7 @@
       } catch (err) {
         let message;
         if (err.code === 'auth/email-already-in-use') {
+            // registered email error
           message = 'This email is already registered.';
         } else if (err.code === 'auth/weak-password') {
           message = 'Password should be at least 6 characters';
