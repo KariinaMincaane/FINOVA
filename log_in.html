@@ -9,11 +9,9 @@
 <body>
   <div class="wrapper">
     <nav>
-      <a href="sakumlapa.html">Home</a>
-      <a href="sign_up.html">Sign Up</a>
-      <a href="log_in.html">Login</a>
-      <a href="study_groups.html">Groups</a>
-      <a href="get_help.html">Other students</a>
+        <a href="sakumlapa.html">Home</a>
+        <a href="sign_up.html">Sign Up</a>
+        <a href="log_in.html">Login</a>
     </nav>
 
     <div class="container">
@@ -76,8 +74,8 @@
       try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         console.log('Logged in:', userCredential.user);
-        window.location.href = 'sakumlapa.html';
-      } catch (err) {
+        window.location.href = 'sakumlapa_2.html';
+      } catch (err) {s
 
         const invalidCodes = [
           'auth/wrong-password',
