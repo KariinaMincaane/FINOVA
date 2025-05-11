@@ -9,9 +9,9 @@
 <body>
   <div class="wrapper">
     <nav>
-      <a href="sakumlapa.html">Home</a>
-      <a href="sign_up.html">Sign Up</a>
-      <a href="log_in.html">Login</a>
+        <a href="sakumlapa.html">Home</a>
+        <a href="sign_up.html">Sign Up</a>
+        <a href="log_in.html">Login</a>
     </nav>
 
     <div class="container">
@@ -45,9 +45,9 @@
   <!-- Firebase v11 modular SDK -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-auth.js";
 
-    // Firebase config (copy/paste from Firebase console)
+    // Firebase config (coppy paste from firebase)
     const firebaseConfig = {
       apiKey: "AIzaSyArhLXFixzSmFPv7mGfAkLXp6uCMAB847o",
       authDomain: "finova-a5e1d.firebaseapp.com",
@@ -58,7 +58,7 @@
       measurementId: "G-KSP7CBCVH6"
     };
 
-    // Initialize Firebase and Authentication
+    // Initialize Firebase and Authentification
     const app  = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
@@ -72,30 +72,20 @@
       const password = document.getElementById('passwordInput').value.trim();
 
       try {
-        // Sign in user
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
+        console.log('Logged in:', userCredential.user);
+        window.location.href = 'sakumlapa_2.html';
+      } catch (err) {s
 
-        // Email verification check
-        if (!user.emailVerified) {
-          errorBox.textContent = 'Please verify your email before logging in.';
-          errorBox.style.display = 'block';
-          await signOut(auth);
-          return;
-        }
+        const invalidCodes = [
+          'auth/wrong-password',
+          'auth/user-not-found',
+          'auth/invalid-credential'
+        ];
+        const message = invalidCodes.includes(err.code)
+          ? 'Wrong email or password'
+          : err.message;
 
-        // Successful login
-        window.location.href = 'sakumlapa.html';
-      } catch (err) {
-        // Error handling
-        let message;
-        if (err.code === 'auth/wrong-password') {
-          message = 'Incorrect password.';
-        } else if (err.code === 'auth/user-not-found') {
-          message = 'No account found with that email.';
-        } else {
-          message = 'Login failed. Please try again.';
-        }
         errorBox.textContent = message;
         errorBox.style.display = 'block';
       }
@@ -103,3 +93,4 @@
   </script>
 </body>
 </html>
+
