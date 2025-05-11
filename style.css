@@ -28,20 +28,19 @@ nav a:hover {
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     text-align: center;
 }
-h1, h2 {
+h1, h2{
     color: #333;
 }
 button, .join, .download {
     background: #641780;
     color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
+    padding: 10px 25px;
+    border-radius: 25px;
     text-decoration: none;
-    font-size: 16px;
-    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.3s ease;
     display: inline-block;
-    margin-top: 10px;
 }
 button:hover, .join:hover, .download:hover {
     background: #4c1260;
@@ -94,7 +93,6 @@ footer {
     font-size: 14px;
     font-family: 'Poppins', sans-serif;
 
-    /* Animācija */
     opacity: 0;
     animation: fadeInUp 1s ease-out forwards;
     animation-delay: 0.5s;
@@ -132,3 +130,94 @@ html, body {
     display: block;
 }
 
+
+
+
+.card {
+    background: #ffe7ea;
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    margin: 30px auto;
+    max-width: 800px;
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.tags {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.tag {
+    background: #cfcccf;
+    color: #1c1a1c;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.description {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.card-image {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    object-fit: cover;
+    max-height: 200px;
+}
+
+.join {
+    background: #641780;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    display: inline-block;
+}
+
+.join:hover {
+    background: #4c1260;
+}
+
+.group-name {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #222;
+    text-align: left;
+}
+
+
+h2 {
+    text-align: center;
+    color: #222;
+    margin-top: 40px;
+}
+
+
+.join-wrapper {
+    text-align: right;
+}
+
+
+
+.card-header-image {
+    width: 100%;
+    height: 50px;
+    object-fit: cover;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
